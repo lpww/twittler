@@ -18,11 +18,23 @@
         $body.html('');
 
         var index = streams.home.length - 1;
-        while(index >= streams.home.length - 11){
+        while(index >= streams.home.length - 5){
+
           var tweet = streams.home[index];
+          console.log(tweet.created_at);
+          
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+
+          var $content = $('<h4></h4>');
+          $content.text('@' + tweet.user + ': ' + tweet.message);
+          $content.appendTo($tweet);
+
+          var $date = $('<p></p>');
+          $date.text(tweet.created_at);
+          $date.appendTo($tweet);
+
           $tweet.appendTo($body);
+
           index -= 1;
         }
       };
