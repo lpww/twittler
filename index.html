@@ -8,19 +8,30 @@
     <script>
 
       $(document).ready(function(){
+
+        update();
+
+      });
+
+      var update = function(){
         var $body = $('body');
         $body.html('');
 
         var index = streams.home.length - 1;
-        while(index >= 0){
+        while(index >= streams.home.length - 11){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
           $tweet.appendTo($body);
           index -= 1;
         }
+      };
 
-      });
+      Object.observe(streams.home, function(changes){
+        changes.forEach(function(){
+          update();
+        });
+      }) 
 
     </script>
   </body>
