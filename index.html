@@ -3,6 +3,7 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
   </head>
   <body>
     <script>
@@ -21,7 +22,6 @@
         while(index >= updates.length - 3){
 
           var tweet = updates[index];
-          console.log(tweet.user);
 
           var $tweet = $('<div></div>');
           $tweet.appendTo($body);
@@ -34,8 +34,9 @@
           $content.text(tweet.message);
           $content.appendTo($tweet);
 
+          var time = moment(tweet.created_at).fromNow();
           var $date = $('<div></div>');
-          $date.text(tweet.created_at);
+          $date.text(time);
           $date.appendTo($tweet);
 
           index -= 1;
