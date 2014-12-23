@@ -9,18 +9,20 @@
 
       $(document).ready(function(){
 
+        //Start watching main feed(all users) on document load 
         watch()(streams.home);
 
       });
 
-      var update = function(feed){
+      //Update html to include latest updates
+      var update = function(updates){
         var $body = $('body');
         $body.html('');
 
-        var index = feed.length - 1;
-        while(index >= feed.length - 3){
+        var index = updates.length - 1;
+        while(index >= updates.length - 3){
 
-          var tweet = feed[index];
+          var tweet = updates[index];
           console.log(tweet.user);
 
           var $tweet = $('<div></div>');
@@ -42,12 +44,14 @@
         }
       };
 
+      //Run update for every change in monitored feed
       var observer = function(changes){
         changes.forEach(function(change){
           update(change.object);
         })
       };
 
+      //Unobserve previous feed (defaults to main feed) and begin observing new feed
       var watch = function(){
 
         var previous = streams.home;
