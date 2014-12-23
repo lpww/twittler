@@ -8,10 +8,8 @@
     <script>
 
       $(document).ready(function(){
-
         //Start watching main feed(all users) on document load 
         watch()(streams.home);
-
       });
 
       //Update html to include latest updates
@@ -52,22 +50,17 @@
       };
 
       //Unobserve previous feed (defaults to main feed) and begin observing new feed
-      var watch = function(){
-
+      var watch = function(){       
         var previous = streams.home;
 
         var monitor = function(feed){
-
           Array.unobserve(previous, observer);
-
           Array.observe(feed, observer);
 
           previous = feed;
-
         }
 
         return monitor;
-
       };
 
     </script>
