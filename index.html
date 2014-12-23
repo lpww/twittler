@@ -9,41 +9,62 @@
 
       $(document).ready(function(){
 
-        update();
+        watch()(streams.home);
 
       });
 
-      var update = function(){
+      var update = function(feed){
         var $body = $('body');
         $body.html('');
 
-        var index = streams.home.length - 1;
-        while(index >= streams.home.length - 5){
+        var index = feed.length - 1;
+        while(index >= feed.length - 3){
 
-          var tweet = streams.home[index];
-          console.log(tweet.created_at);
-          
+          var tweet = feed[index];
+          console.log(tweet.user);
+
           var $tweet = $('<div></div>');
+          $tweet.appendTo($body);
 
-          var $content = $('<h4></h4>');
-          $content.text('@' + tweet.user + ': ' + tweet.message);
+          var $username = $('<a onclick="watch()(streams.users.' + tweet.user + ')"></a>');
+          $username.text('@' + tweet.user + ': ');
+          $username.appendTo($tweet);
+
+          var $content = $('<div></div>');
+          $content.text(tweet.message);
           $content.appendTo($tweet);
 
-          var $date = $('<p></p>');
+          var $date = $('<div></div>');
           $date.text(tweet.created_at);
           $date.appendTo($tweet);
-
-          $tweet.appendTo($body);
 
           index -= 1;
         }
       };
 
-      Object.observe(streams.home, function(changes){
-        changes.forEach(function(){
-          update();
-        });
-      }) 
+      var observer = function(changes){
+        changes.forEach(function(change){
+          update(change.object);
+        })
+      };
+
+      var watch = function(){
+
+        var previous = streams.home;
+
+        var monitor = function(feed){
+
+          Array.unobserve(previous, observer);
+
+          Array.observe(feed, observer);
+
+          previous = feed;
+
+        }
+
+        return monitor;
+
+      };
 
     </script>
   </body>
