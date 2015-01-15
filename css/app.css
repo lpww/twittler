@@ -1,0 +1,82 @@
+body {
+  text-align: center;
+  background: #55ACEE;
+}
+
+.user {
+  color: blue;
+  width: auto;
+}
+
+.user:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.logo {
+  height: 22%;
+  width: 22%;
+}
+
+.logoContainer {
+  margin-top: 1.5%;
+}
+
+.formContainer {
+  width: auto;
+  height: auto;
+}
+
+form {
+  position: relative;
+  margin: auto;
+}
+
+input {
+  border: 1px, black;
+  font-family: helvetica;
+  margin-top: 1.75%;
+  margin-bottom: 1.75%;
+  font-size: 250%;
+  margin-left: 0;
+  margin-right: 0;
+  border: 0;
+  padding: 0;
+  width: 90%;
+  text-align: center;
+  font-style: italic;
+  color: grey;
+  font-weight: 200;
+}
+
+feed {
+  font-family: helvetica;
+  float: right;
+  width: 50%;
+  margin-right: 25%;
+}
+
+.tweet {
+  margin-bottom: 0.5%;
+  font-size: larger;
+}
+
+.time {
+  font-style: italic;
+  font-size: smaller;
+}
+
+.back {
+  background: #55ACEE;
+  background-image: url("../img/Back_Arrow.svg");
+  border: none;
+  margin-top: 6.5%;
+  margin-left: 12.5%;
+  float: left;
+  width: 10em;
+  height: 10em;
+}
+
+.invisible {
+  display: none;
+}

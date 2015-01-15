@@ -1,69 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="css/app.css" />
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
     <script src="bower_components/moment/moment.js"></script>
+    <script src="img/app.js"></script>
   </head>
   <body>
-    <script>
+    <div class="logoContainer"><object type="image/svg+xml" data="img/twittler.svg" class="logo">Your browser does not support SVG!!</object></div>
+    
+    <form>
+      <input type="text button" placeholder="What's on your mind?" id="post" maxlength="140" autocomplete="off" onsubmit="return false">
+    </form>  
 
-      $(document).ready(function(){
-        //Start watching main feed(all users) on document load 
-        watch()(streams.home);
-      });
+    <div class="feedContainer">
+      <feed>
+      <!-- The feed is populaed by the update function -->
+      </feed>
 
-      //Update html to include latest updates
-      var update = function(updates){
-        var $body = $('body');
-        $body.html('');
-
-        var index = updates.length - 1;
-        while(index >= updates.length - 3){
-
-          var tweet = updates[index];
-
-          var $tweet = $('<div></div>');
-          $tweet.appendTo($body);
-
-          var $username = $('<a onclick="watch()(streams.users.' + tweet.user + ')"></a>');
-          $username.text('@' + tweet.user + ': ');
-          $username.appendTo($tweet);
-
-          var $content = $('<div></div>');
-          $content.text(tweet.message);
-          $content.appendTo($tweet);
-
-          var time = moment(tweet.created_at).fromNow();
-          var $date = $('<div></div>');
-          $date.text(time);
-          $date.appendTo($tweet);
-
-          index -= 1;
-        }
-      };
-
-      //Run update for every change in monitored feed
-      var observer = function(changes){
-        changes.forEach(function(change){
-          update(change.object);
-        })
-      };
-
-      //Unobserve previous feed (defaults to main feed) and begin observing new feed
-      var watch = function(){       
-        var previous = streams.home;
-
-        var monitor = function(feed){
-          Array.unobserve(previous, observer);
-          Array.observe(feed, observer);
-
-          previous = feed;
-        }
-
-        return monitor;
-      };
-
-    </script>
+      <button type="button" class="back invisible"onclick="watch()(streams.home)"></button>
+      
+    </div>
   </body>
 </html>
